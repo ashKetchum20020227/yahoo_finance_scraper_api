@@ -9,15 +9,12 @@ from apscheduler.triggers.cron import CronTrigger
 from constants import month_str_to_int_dict, headers, db_name
 
 conn = sqlite3.connect(db_name)
-# conn = sqlite3.connect('file::memory:?cache=shared')
-
 cursor = conn.cursor()
 
 # run once per day per exchange at midnight
 def scrape_new_data(from_cur, to_cur):
 
     conn = sqlite3.connect(db_name)
-    # conn = sqlite3.connect('file::memory:?cache=shared')
     cursor = conn.cursor()
 
     cur_time = datetime.datetime.now()

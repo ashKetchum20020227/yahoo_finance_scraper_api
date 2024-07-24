@@ -20,8 +20,7 @@ class ForexData(Resource):
         end_time = datetime.datetime.now()
         start_time = end_time - datetime.timedelta(days=period_to_days_dict[period])
         
-        conn = sqlite3.connect(db_name)
-        # conn = sqlite3.connect('file::memory:?cache=shared')
+        conn = sqlite3.connect('file::memory:?cache=shared')
         cursor = conn.cursor()
         query = """SELECT * FROM FOREX_DATA
                     WHERE from_cur = ? AND to_cur = ? AND datetime(entry_date) BETWEEN datetime(?) AND datetime(?)"""
