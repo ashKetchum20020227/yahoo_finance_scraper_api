@@ -1,5 +1,5 @@
 Python requirements
-- python 3.10.12
+- python 3.10.x+
 - pip
 
 Pre-run
