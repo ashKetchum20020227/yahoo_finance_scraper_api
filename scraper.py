@@ -6,33 +6,18 @@ import calendar
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 
+from constants import month_str_to_int_dict, headers, db_name
 
-month_str_to_int_dict = {
-    'Jan': 1,
-    'Feb': 2,
-    'Mar': 3,
-    'Apr': 4,
-    'May': 5,
-    'Jun': 6,
-    'Jul': 7,
-    'Aug': 8,
-    'Sep': 9,
-    'Oct': 10,
-    'Nov': 11,
-    'Dec': 12
-}
+conn = sqlite3.connect(db_name)
+# conn = sqlite3.connect('file::memory:?cache=shared')
 
-seconds_in_day = 60*60*24
-
-headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"} 
-
-conn = sqlite3.connect('file::memory:?cache=shared')
 cursor = conn.cursor()
 
 # run once per day per exchange at midnight
 def scrape_new_data(from_cur, to_cur):
 
-    conn = sqlite3.connect('file::memory:?cache=shared')
+    conn = sqlite3.connect(db_name)
+    # conn = sqlite3.connect('file::memory:?cache=shared')
     cursor = conn.cursor()
 
     cur_time = datetime.datetime.now()
@@ -106,6 +91,11 @@ def scrape_historical_initial():
 
     
 def create_table():
+
+    query = """DROP TABLE IF EXISTS FOREX_DATA"""
+    cursor.execute(query)
+    conn.commit()
+
     query = """ CREATE TABLE FOREX_DATA (
             from_cur TEXT,
             to_cur TEXT,
@@ -138,9 +128,3 @@ def main():
     create_table()
     scrape_historical_initial()
     init_scheduler()
-    
-
-# if __name__ == "__main__":
-#     main()
-#     while (True):
-#         continue

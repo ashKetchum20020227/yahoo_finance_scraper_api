@@ -1,20 +1,14 @@
 from flask import Flask, jsonify, request 
 from flask_restful import Resource, Api 
-import calendar
 import sqlite3
 import datetime
 
+from constants import period_to_days_dict, db_name
 from scraper import main
 
 app = Flask(__name__)
 api = Api(app)
-period_to_days_dict = {
-    "1W": 7,
-    "1M": 30,
-    "3M": 90,
-    "6M": 180,
-    "1Y": 365
-}
+
 
 class ForexData(Resource):
   
@@ -26,7 +20,8 @@ class ForexData(Resource):
         end_time = datetime.datetime.now()
         start_time = end_time - datetime.timedelta(days=period_to_days_dict[period])
         
-        conn = sqlite3.connect('file::memory:?cache=shared')
+        conn = sqlite3.connect(db_name)
+        # conn = sqlite3.connect('file::memory:?cache=shared')
         cursor = conn.cursor()
         query = """SELECT * FROM FOREX_DATA
                     WHERE from_cur = ? AND to_cur = ? AND datetime(entry_date) BETWEEN datetime(?) AND datetime(?)"""
