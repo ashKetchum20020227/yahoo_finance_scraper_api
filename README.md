@@ -9,6 +9,6 @@ Pre-run
 
 How to run?
 1) python inMemory/api.py (or) python persistent/api.py (Depending on your system, use python or python3 command)
-2) Send the below POST request from Postman or through a curl command
-http://localhost:8000/api/forex-data?from=GBP&to=INR&period=1M
+2) Send the below POST request from Postman or through a curl command <br/>
+http://localhost:8000/api/forex-data?from=GBP&to=INR&period=1M <br/>
 You will be able to see the data according to the query parameters
