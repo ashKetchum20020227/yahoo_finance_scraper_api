@@ -13,4 +13,4 @@ How to run?
 http://localhost:8000/api/forex-data?from=GBP&to=INR&period=1M <br/>
 You will be able to see the data according to the query parameters
 <br/>
-- I also tried to seperate the constants used in a constants file, API code in the api.py file and lastly the scraper and database functions in scrapper.py file
+I also tried to seperate the constants used in a constants file, API code in the api.py file and lastly the scraper and database functions in scrapper.py file
